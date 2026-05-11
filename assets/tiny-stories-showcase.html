@@ -1,0 +1,621 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tiny Stories Showcase</title>
+  <style>
+    :root {
+      --w: 1040px;
+      --h: 650px;
+      --ink: #111827;
+      --muted: #667085;
+      --line: #d9e0ea;
+      --paper: #fbfcfe;
+      --panel: #ffffff;
+      --nav: #121826;
+      --teal: #13b8a6;
+      --blue: #4f7cff;
+      --amber: #f2a93b;
+      --coral: #f66f61;
+      --violet: #8b5cf6;
+      --shadow: 0 26px 70px rgba(31, 41, 55, 0.16);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    html,
+    body {
+      width: var(--w);
+      height: var(--h);
+      margin: 0;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 12% 18%, rgba(79, 124, 255, 0.12), transparent 28%),
+        radial-gradient(circle at 88% 14%, rgba(19, 184, 166, 0.14), transparent 26%),
+        linear-gradient(135deg, #f6f8fc 0%, #eef3f8 100%);
+      color: var(--ink);
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(17, 24, 39, 0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(17, 24, 39, 0.035) 1px, transparent 1px);
+      background-size: 32px 32px;
+      mask-image: linear-gradient(to bottom, black, transparent 92%);
+      pointer-events: none;
+    }
+
+    .stage {
+      width: var(--w);
+      height: var(--h);
+      padding: 32px;
+      display: grid;
+      place-items: center;
+    }
+
+    .app {
+      width: 976px;
+      height: 576px;
+      display: grid;
+      grid-template-columns: 74px 1fr;
+      border: 1px solid rgba(26, 41, 63, 0.14);
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--paper);
+      box-shadow: var(--shadow);
+    }
+
+    .rail {
+      background: var(--nav);
+      padding: 18px 14px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      color: #a7b1c2;
+    }
+
+    .brand {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      color: #eafffb;
+      background: linear-gradient(135deg, var(--teal), #2dd4bf);
+      font-weight: 900;
+      box-shadow: 0 10px 22px rgba(19, 184, 166, 0.35);
+    }
+
+    .navIcon {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.03);
+      font-size: 15px;
+      font-weight: 800;
+    }
+
+    .navIcon.active {
+      color: white;
+      background: rgba(79, 124, 255, 0.22);
+      border-color: rgba(79, 124, 255, 0.45);
+    }
+
+    .content {
+      min-width: 0;
+      padding: 18px 20px 20px;
+      display: grid;
+      grid-template-rows: 58px 1fr 72px;
+      gap: 16px;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 14px;
+    }
+
+    .eyebrow {
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--teal);
+      font-weight: 900;
+    }
+
+    .title {
+      font-size: 22px;
+      line-height: 1.15;
+      font-weight: 900;
+      letter-spacing: -0.01em;
+      margin-top: 4px;
+    }
+
+    .rightMeta {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 12px;
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .pill {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 8px 12px;
+      background: white;
+    }
+
+    .pill.live {
+      color: #067a6f;
+      border-color: rgba(19, 184, 166, 0.38);
+      background: rgba(19, 184, 166, 0.08);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 250px 1fr 250px;
+      gap: 16px;
+      min-height: 0;
+    }
+
+    .card {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(255,255,255,0.78);
+      box-shadow: 0 12px 28px rgba(31, 41, 55, 0.06);
+      min-height: 0;
+    }
+
+    .cardHeader {
+      height: 48px;
+      padding: 14px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #e6ebf2;
+      font-size: 14px;
+      font-weight: 900;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--teal);
+      box-shadow: 0 0 0 5px rgba(19, 184, 166, 0.10);
+    }
+
+    .seedBody {
+      padding: 16px;
+    }
+
+    .promptBox {
+      height: 118px;
+      padding: 14px;
+      border-radius: 8px;
+      border: 1px solid #dfe6f0;
+      background: #f8fafc;
+      font-size: 14px;
+      line-height: 1.55;
+      color: #1f2937;
+    }
+
+    .cursor {
+      display: inline-block;
+      width: 7px;
+      height: 15px;
+      margin-left: 2px;
+      border-radius: 2px;
+      vertical-align: -2px;
+      background: var(--teal);
+      opacity: var(--cursor, 1);
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .chip {
+      height: 28px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 800;
+      background: white;
+      border: 1px solid var(--line);
+      color: #475467;
+    }
+
+    .chip.teal { color: #067a6f; border-color: rgba(19, 184, 166, .35); background: rgba(19, 184, 166, .08); }
+    .chip.amber { color: #915f00; border-color: rgba(242, 169, 59, .40); background: rgba(242, 169, 59, .12); }
+    .chip.violet { color: #5b32b4; border-color: rgba(139, 92, 246, .34); background: rgba(139, 92, 246, .09); }
+
+    .scene {
+      position: relative;
+      overflow: hidden;
+      display: grid;
+      grid-template-rows: 48px 1fr;
+    }
+
+    .sceneArt {
+      position: absolute;
+      inset: 60px 18px 90px;
+      border-radius: 8px;
+      overflow: hidden;
+      background:
+        linear-gradient(180deg, rgba(15, 23, 42, 0.88), rgba(17, 24, 39, 0.94)),
+        radial-gradient(circle at 20% 20%, rgba(79, 124, 255, 0.4), transparent 32%);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .sceneArt::before {
+      content: "";
+      position: absolute;
+      inset: auto -40px -55px;
+      height: 130px;
+      border-radius: 50% 50% 0 0;
+      background: linear-gradient(90deg, #172554, #0f766e 45%, #f59e0b);
+      opacity: .95;
+    }
+
+    .moon {
+      position: absolute;
+      right: 54px;
+      top: 30px;
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      background: #fff7cc;
+      box-shadow: 0 0 40px rgba(255, 247, 204, .42);
+    }
+
+    .path {
+      position: absolute;
+      left: 58px;
+      right: 58px;
+      bottom: 45px;
+      height: 3px;
+      background: rgba(255,255,255,.25);
+      border-radius: 999px;
+    }
+
+    .path::after {
+      content: "";
+      display: block;
+      width: var(--path, 0%);
+      height: 3px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--teal), var(--amber), var(--coral));
+    }
+
+    .storyCard {
+      position: absolute;
+      left: 42px;
+      right: 42px;
+      bottom: 20px;
+      padding: 14px 16px;
+      border-radius: 8px;
+      background: rgba(255,255,255,.94);
+      box-shadow: 0 14px 36px rgba(15,23,42,.26);
+      border: 1px solid rgba(255,255,255,.72);
+    }
+
+    .storyCard strong {
+      display: block;
+      font-size: 13px;
+      color: #0f766e;
+      margin-bottom: 5px;
+    }
+
+    .storyText {
+      font-size: 13px;
+      line-height: 1.45;
+      color: #1f2937;
+    }
+
+    .choices {
+      position: absolute;
+      left: 42px;
+      right: 42px;
+      bottom: 112px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+
+    .choice {
+      height: 34px;
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      color: white;
+      font-size: 12px;
+      font-weight: 800;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(15,23,42,.62);
+      transform: translateY(var(--choiceY, 8px));
+      opacity: var(--choiceOpacity, .25);
+    }
+
+    .choice.active {
+      background: rgba(19,184,166,.88);
+      border-color: rgba(255,255,255,.25);
+      box-shadow: 0 10px 20px rgba(19,184,166,.22);
+    }
+
+    .traceBody {
+      padding: 12px 14px 14px;
+      display: grid;
+      gap: 10px;
+    }
+
+    .traceLine {
+      min-height: 34px;
+      border-radius: 8px;
+      border: 1px solid #e2e8f0;
+      background: #f8fafc;
+      padding: 8px 10px;
+      font: 700 12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      color: #536173;
+      opacity: .45;
+    }
+
+    .traceLine.on {
+      opacity: 1;
+      color: #172033;
+      background: white;
+      border-color: rgba(79, 124, 255, .25);
+      box-shadow: 0 8px 18px rgba(79, 124, 255, .08);
+    }
+
+    .traceLine.hot {
+      border-color: rgba(246, 111, 97, .35);
+      box-shadow: 0 8px 18px rgba(246, 111, 97, .10);
+    }
+
+    .timeline {
+      display: grid;
+      grid-template-columns: 126px 1fr;
+      align-items: center;
+      gap: 18px;
+      padding: 16px 18px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: white;
+    }
+
+    .timelineLabel {
+      font-size: 13px;
+      font-weight: 900;
+      color: #344054;
+    }
+
+    .steps {
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 8px;
+    }
+
+    .steps::before {
+      content: "";
+      position: absolute;
+      left: 8px;
+      right: 8px;
+      top: 13px;
+      height: 4px;
+      border-radius: 999px;
+      background: #e3e8f0;
+    }
+
+    .progress {
+      position: absolute;
+      left: 8px;
+      top: 13px;
+      height: 4px;
+      width: var(--progress, 0%);
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--teal), var(--blue), var(--amber), var(--coral));
+    }
+
+    .step {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      gap: 7px;
+      justify-items: center;
+      color: #8390a3;
+      font-size: 11px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+    }
+
+    .orb {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: white;
+      border: 4px solid #e3e8f0;
+      box-shadow: 0 0 0 4px white;
+    }
+
+    .step.done { color: #334155; }
+    .step.done .orb { border-color: var(--teal); }
+    .step:nth-child(4).done .orb { border-color: var(--blue); }
+    .step:nth-child(5).done .orb { border-color: var(--amber); }
+    .step:nth-child(6).done .orb { border-color: var(--coral); }
+
+    .pointer {
+      position: absolute;
+      width: 24px;
+      height: 24px;
+      left: 0;
+      top: 0;
+      z-index: 10;
+      transform: translate(var(--px), var(--py));
+      filter: drop-shadow(0 10px 16px rgba(15,23,42,.25));
+    }
+
+    .pointer svg { display: block; }
+  </style>
+</head>
+<body>
+  <main class="stage">
+    <section class="app">
+      <aside class="rail">
+        <div class="brand">S</div>
+        <div class="navIcon active">Q</div>
+        <div class="navIcon">W</div>
+        <div class="navIcon">T</div>
+        <div style="flex:1"></div>
+        <div class="navIcon">?</div>
+      </aside>
+
+      <section class="content">
+        <header class="topbar">
+          <div>
+            <div class="eyebrow">Tiny Stories</div>
+            <div class="title">Playable AI story studio</div>
+          </div>
+          <div class="rightMeta">
+            <span class="pill">Seed -> runtime</span>
+            <span class="pill live">State visible</span>
+          </div>
+        </header>
+
+        <section class="grid">
+          <article class="card">
+            <div class="cardHeader">Seed board <span class="dot"></span></div>
+            <div class="seedBody">
+              <div class="promptBox">
+                <span id="seedText"></span><span class="cursor"></span>
+              </div>
+              <div class="chips">
+                <span class="chip teal">campus</span>
+                <span class="chip amber">choice</span>
+                <span class="chip violet">mystery</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="card scene">
+            <div class="cardHeader">Runtime preview <span id="sceneStatus" class="pill">reading</span></div>
+            <div class="sceneArt">
+              <div class="moon"></div>
+              <div class="path"></div>
+            </div>
+            <div class="choices">
+              <div class="choice active">Ask</div>
+              <div class="choice">Trace</div>
+              <div class="choice">Rewrite</div>
+            </div>
+            <div class="storyCard">
+              <strong id="storyTitle">Campus Archive</strong>
+              <div id="storyText" class="storyText">The advisor opens a door behind the syllabus wall. Every choice leaves a visible trace.</div>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="cardHeader">State trace <span class="dot" style="background: var(--coral)"></span></div>
+            <div class="traceBody">
+              <div class="traceLine" data-line="0">intent: "mystery"</div>
+              <div class="traceLine" data-line="1">world: compiled</div>
+              <div class="traceLine" data-line="2">choices: 3 active</div>
+              <div class="traceLine" data-line="3">memory: 12 facts</div>
+              <div class="traceLine" data-line="4">review: replayable</div>
+            </div>
+          </article>
+        </section>
+
+        <footer class="timeline">
+          <div>
+            <div class="timelineLabel">Quest loop</div>
+            <div class="small" style="font-size:12px;margin-top:4px;">rough idea to reviewable state</div>
+          </div>
+          <div class="steps">
+            <div class="progress"></div>
+            <div class="step" data-step="0"><span class="orb"></span><span>Seed</span></div>
+            <div class="step" data-step="1"><span class="orb"></span><span>Preview</span></div>
+            <div class="step" data-step="2"><span class="orb"></span><span>Compile</span></div>
+            <div class="step" data-step="3"><span class="orb"></span><span>Play</span></div>
+            <div class="step" data-step="4"><span class="orb"></span><span>Inspect</span></div>
+          </div>
+        </footer>
+      </section>
+    </section>
+
+    <div class="pointer" aria-hidden="true">
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M4.8 3.6L22.9 14.3L14.8 16.4L11.3 24.2L4.8 3.6Z" fill="#111827" stroke="white" stroke-width="1.6" stroke-linejoin="round"/>
+      </svg>
+    </div>
+  </main>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const frame = Number(params.get("frame") || 0);
+    const total = Number(params.get("total") || 56);
+    const t = Math.min(1, Math.max(0, frame / (total - 1)));
+    const stage = Math.min(4, Math.floor(t * 5));
+    const local = Math.min(1, Math.max(0, (t * 5) - stage));
+    const ease = (x) => 0.5 - 0.5 * Math.cos(Math.PI * x);
+    const p = ease(local);
+
+    const seed = "A campus archive starts remembering choices that students never made.";
+    const seedCount = stage === 0 ? Math.floor(seed.length * p) : seed.length;
+    document.getElementById("seedText").textContent = seed.slice(0, seedCount);
+    document.documentElement.style.setProperty("--cursor", frame % 8 < 4 ? 1 : 0.2);
+
+    const status = ["reading", "previewing", "compiling", "playable", "inspectable"];
+    document.getElementById("sceneStatus").textContent = status[stage];
+    document.documentElement.style.setProperty("--path", `${Math.min(100, Math.max(8, t * 112))}%`);
+    document.documentElement.style.setProperty("--choiceOpacity", stage >= 3 ? 1 : Math.max(0.25, p));
+    document.documentElement.style.setProperty("--choiceY", `${stage >= 3 ? 0 : 8 - 8 * p}px`);
+
+    const progress = Math.min(100, t * 100);
+    document.documentElement.style.setProperty("--progress", `${progress}%`);
+    document.querySelectorAll(".step").forEach((node) => {
+      const s = Number(node.dataset.step);
+      node.classList.toggle("done", s <= stage);
+    });
+
+    document.querySelectorAll(".traceLine").forEach((node) => {
+      const line = Number(node.dataset.line);
+      const visible = stage >= 4 || line <= stage;
+      node.classList.toggle("on", visible);
+      node.classList.toggle("hot", stage >= 4 && line === (frame % 20 < 10 ? 3 : 4));
+    });
+
+    const points = [
+      [230, 280],
+      [415, 244],
+      [514, 406],
+      [688, 312],
+      [812, 228]
+    ];
+    const a = points[stage];
+    const b = points[Math.min(4, stage + 1)];
+    const px = a[0] + (b[0] - a[0]) * p;
+    const py = a[1] + (b[1] - a[1]) * p;
+    document.documentElement.style.setProperty("--px", `${px}px`);
+    document.documentElement.style.setProperty("--py", `${py}px`);
+  </script>
+</body>
+</html>
