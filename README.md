@@ -1,11 +1,11 @@
 <h1 align="center">Shehao Li</h1>
 
 <p align="center">
-  <strong>AI product builder turning messy workflows into inspectable software.</strong>
+  <strong>I build AI workflow systems with visible state, typed contracts, and product loops people can actually use.</strong>
 </p>
 
 <p align="center">
-  UCSD Math-CS | full-stack AI products | workflow automation | product-quality demos
+  UCSD Math-CS | AI products | full-stack systems | workflow automation
 </p>
 
 <p align="center">
@@ -16,18 +16,30 @@
     <img src="https://img.shields.io/badge/Demo-Tiny%20Stories-d4a853?style=for-the-badge" alt="Tiny Stories demo" />
   </a>
   <a href="https://github.com/lishehao/auto-load-off-test">
-    <img src="https://img.shields.io/badge/Automation-Saiwei%20Systems-15161c?style=for-the-badge" alt="Saiwei automation systems" />
+    <img src="https://img.shields.io/badge/Automation-Auto%20Load--Off%20Test-15161c?style=for-the-badge" alt="Auto Load-Off Test" />
   </a>
 </p>
 
 ---
 
+<p align="center">
+  <img src="./assets/rpg-demo-profile-loop.gif" alt="RPG_Demo current product loop showing the home page, portfolio case study, reviewer mode, runtime inspector, advisor channel, and ending compiler" width="100%" />
+</p>
+
+| What I care about | Evidence in shipped work |
+| --- | --- |
+| **AI product loops** | Seed -> compile -> play -> inspect, with user-visible checkpoints instead of one-shot generation. |
+| **Reliable workflow systems** | Typed API boundaries, persisted state, replayable outputs, and task handoff surfaces. |
+| **Human-centered control** | Interfaces that show what changed, what the AI is using, and where the user can steer. |
+
+---
+
 ## What I Build
 
-I build products that make complicated workflows easier to run, inspect, and improve. Right now, this page focuses on work that is already shipped or substantially complete:
+I build products that make complicated workflows easier to run, inspect, and improve. This page focuses on work that is already shipped or substantially complete:
 
-- **RPG_Demo / Tiny Stories**, a full-stack AI storytelling product with a visible authoring and play loop.
-- **Saiwei automation systems**, a set of Python tools that turned instrument testing, email operations, and issue tracking into repeatable workflows.
+- **RPG_Demo / Tiny Stories**, a full-stack AI narrative product where a story seed becomes a playable, inspectable runtime.
+- **Auto Load-Off Test**, a Python instrumentation workflow that turned repeated AWG/oscilloscope-style validation work into a repeatable desktop tool.
 
 The common thread is simple: I like turning ambiguous product or operations problems into software with clear interfaces, state, logs, and user-visible checkpoints.
 
@@ -35,15 +47,15 @@ The common thread is simple: I like turning ambiguous product or operations prob
 
 ## Flagship: RPG_Demo / Tiny Stories
 
-Tiny Stories is a full-stack AI narrative product shaped like a playable workflow. A user writes a short story seed, previews how the AI interpreted it, compiles it into a runtime, publishes it into a library, and plays through natural-language turns.
+**RPG_Demo** is the implementation repo; **Tiny Stories** is the product experience inside it. A user writes a story seed, previews how the system interprets it, publishes it into a library, plays through natural-language turns, and reviews the ending with state, consequences, and transcript evidence still visible.
 
 <p align="center">
-  <img src="./assets/tiny-stories-product-loop.gif" alt="Tiny Stories product loop: seed, preview, compile, play, and inspect state changes" width="100%" />
+  <img src="./assets/rpg-demo-profile-loop-poster.png" alt="RPG_Demo runtime inspector showing state, role, choices, inventory, and ending compiler status" width="100%" />
 </p>
 
 | Layer | What it proves |
 | --- | --- |
-| **Product loop** | Seed -> preview -> author job -> publish -> play -> ending, with user-visible checkpoints instead of a one-shot generator. |
+| **Product loop** | Seed -> preview -> publish -> play -> review, with user-visible checkpoints instead of a one-shot generator. |
 | **Frontend surface** | React + TypeScript UI for creation, story library, play sessions, replay, and state/review panels. |
 | **Backend runtime** | FastAPI + Pydantic contracts, SQLite persistence, auth/session handling, and typed frontend/backend API boundaries. |
 | **LLM workflow** | Structured generation, bounded advisor behavior, deterministic scaffolding before model calls, and runtime state carried across turns. |
@@ -53,15 +65,13 @@ Tiny Stories is a full-stack AI narrative product shaped like a playable workflo
 
 ---
 
-## Saiwei Automation Systems
+## Auto Load-Off Test
 
-During my instrument-company internship, I built internal automation tools for lab validation and operational handoff. These projects are less flashy than an AI demo, but they show the part of engineering I care about: making repeated real-world work reliable enough for other people to use.
+During my instrument-company internship, I built a Python desktop automation tool for repeated lab validation work. It is less flashy than an AI demo, but it shows the part of engineering I care about: making repeated real-world work reliable enough for other people to use.
 
 | Project | What it automated | Evidence |
 | --- | --- | --- |
 | [**auto-load-off-test**](https://github.com/lishehao/auto-load-off-test) | AWG/oscilloscope-style sweep measurement and calibration workflow with PyVISA/SCPI control, Tkinter UI, structured outputs, and layered architecture. | Reduced test preparation and result organization effort by about **75%**; supported about **5 users**; includes tests for sweep planning, measurement IO, settings, and task flow. |
-| [**mail-to-dingtalk-todo**](https://github.com/lishehao/mail-to-dingtalk-todo) | IMAP email parsing -> structured business fields -> DingTalk To-Do creation -> idempotent processed-message state. | Handled about **200 emails/day** for about **10 users** in a restart-safe workflow. |
-| [**github-issues-to-dingtalk**](https://github.com/lishehao/github-issues-to-dingtalk) | GitHub issue activity -> incremental sync -> digest-style DingTalk summaries for responsible owners. | Summarized **1000+ issues/day**, covered about **50 owners**, and stayed in production-style use for around **six months**. |
 
 ---
 
@@ -71,8 +81,6 @@ During my instrument-company internship, I built internal automation tools for l
 | --- | --- | --- |
 | [**RPG_Demo**](https://github.com/lishehao/RPG_Demo) | AI narrative product | Full-stack author -> publish -> play loop, LLM runtime contracts, frontend product surface, state/review experience. |
 | [**auto-load-off-test**](https://github.com/lishehao/auto-load-off-test) | Instrument automation | Python desktop workflow for AWG/oscilloscope-style validation, SCPI/PyVISA control, exports, and test repeatability. |
-| [**mail-to-dingtalk-todo**](https://github.com/lishehao/mail-to-dingtalk-todo) | Operations automation | IMAP parsing, structured task extraction, DingTalk task creation, idempotency, and internal workflow handoff. |
-| [**github-issues-to-dingtalk**](https://github.com/lishehao/github-issues-to-dingtalk) | DevOps workflow automation | Incremental issue sync, digest-style notification, owner handoff, and DingTalk integration. |
 | [**ScholarPath**](https://github.com/lishehao/ScholarPath) | AI advising and decision system | Guided intake, recommendation surfaces, semantic retrieval, and application-decision workflow logic. |
 
 ---
