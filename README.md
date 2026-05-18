@@ -21,10 +21,6 @@
   </a>
 </p>
 
-<p align="center">
-  <img src="./assets/builder-loop.gif" alt="Animated builder loop: messy idea to product loop to visible state to shipped proof" width="86%" />
-</p>
-
 ---
 
 ## Tiny Note
