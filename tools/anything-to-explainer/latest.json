@@ -3,6 +3,7 @@
   "version": "1.8.1-rc.1",
   "repository_full_name": "lishehao/lishehao",
   "release_root": "tools/anything-to-explainer/releases/1.8.1-rc.1",
+  "mirror_scope": "cross-thread recovery core; full source remains in the Skill/source package",
   "required_text_files": [
     "SKILL.md",
     "SYNC_CONTEXT.md",
@@ -10,7 +11,6 @@
   ],
   "recommended_reference_files": [
     "references/light-keynote-and-teaching-attention.md",
-    "references/teaching-system-design.md",
     "references/scrimba-pointer-and-canva-adapter.md",
     "references/platform-optimization-v1.6.md",
     "references/plugin-architecture.md"
@@ -39,10 +39,6 @@
     "references/light-keynote-and-teaching-attention.md": {
       "sha256": "b6b5a6cc16b9e6d8b97031e66f0d5306b91642d88cd7341732a072fab41e391a",
       "bytes": 2103
-    },
-    "references/teaching-system-design.md": {
-      "sha256": "042ed5e77726ea877efcc3726f71f65237342aab93c3aa9823d3846500cad5f8",
-      "bytes": 22722
     },
     "references/scrimba-pointer-and-canva-adapter.md": {
       "sha256": "900df68696c56795622a94ab35211bada739dab4a6f1af319921d95fcf365385",
